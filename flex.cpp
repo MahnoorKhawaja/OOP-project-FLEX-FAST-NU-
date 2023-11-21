@@ -9,7 +9,7 @@ int main()
 {
     cout<<"FLEX COURSE MANAGEMENT SYSTEM"<<endl;
     cout<<"------------------------------"<<endl;
-    
+     
     
 
   return 0;  
