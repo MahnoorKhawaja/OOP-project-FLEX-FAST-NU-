@@ -1,11 +1,9 @@
 #include<iostream>
+#include"student.h"
+#include"filehandler"
+#include"system.h"
+#include"validator.h"
 using namespace std;
-
-class Student{};
-class course{};
-class system{};
-class filehandler{};
-class validator{};
 
 int main()
 {
