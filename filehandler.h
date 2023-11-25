@@ -25,7 +25,7 @@ void filehandler::loadstudents(){
     if(infile.is_open())
     {
         while(getline(infile,line)){
-            cout<<"read line "<< line<<endl;
+            cout<< line<<endl;
         }
         infile.close();
     }

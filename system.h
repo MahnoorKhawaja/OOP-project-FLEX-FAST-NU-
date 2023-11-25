@@ -1,5 +1,5 @@
 #include <iostream>
-// #include<string.h>
+ #include<cstring>
 using namespace std;
 #pragma
 
@@ -15,8 +15,9 @@ public:
     void addstudent();
     void current_students();
   void remove_student(string rollnumber);
- void update_studentinfo();
+    void update_studentinfo();
     ~Enrollment_Manager();
+    friend class course;
 };
 
 Enrollment_Manager::Enrollment_Manager()
@@ -30,9 +31,78 @@ Enrollment_Manager::Enrollment_Manager()
         enrollers[i] = nullptr; // Initialize all elements to nullptr
     }
 }
-// void Enrollment_manager::update_studentinfo(){
-//     cout<<""
-// }
+void Enrollment_Manager::update_studentinfo(){
+    cout<<"---Select which part of student information you want to update---"<<endl;
+    cout<<"1. Students Name "<<endl;
+    cout<<"2. Student Roll Number"<<endl;
+    cout<<"3. Student contact number"<<endl;
+    string enter;
+    cout<<"Enter your choice:"<<endl;
+    cin.ignore();
+    getline(cin,enter);
+    if(enter=="1")
+    {
+        cout<<"enter your previous name"<<endl;
+        string name;
+        cin.ignore();
+        getline(cin,name);
+        cout<<"enter your new name"<<endl;
+        string newname;
+        cin.ignore();
+        getline(cin,newname);
+        for(int i=0;i<total_students;i++)
+        {
+            if(enrollers[i]->getname()==name)
+            {
+                enrollers[i]->setname(newname);
+                cout<<"NAME HAS BEEN UPDATED"<<endl;
+                break;
+            }
+        }
+    }
+
+    if(enter=="2")
+    {
+        cout<<"enter your previous roll number"<<endl;
+        string roll;
+        cin.ignore();
+        getline(cin,roll);
+        cout<<"enter your new rollnumber"<<endl;
+        string newroll;
+        cin.ignore();
+        getline(cin,newroll);
+        for(int i=0;i<total_students;i++)
+        {
+            if(enrollers[i]->getrollnum()==roll)
+            {
+                enrollers[i]->setrollnumber(newroll);
+                cout<<"ROLL NUMBER HAS BEEN UPDATED"<<endl;
+                break;
+            }
+
+        }
+    }
+     if(enter=="3")
+    {
+        cout<<"enter your previous contact"<<endl;
+        string contact;
+        cin.ignore();
+        getline(cin,contact);
+        cout<<"enter your new contactnumber"<<endl;
+        string newcontact;
+        cin.ignore();
+        getline(cin,newcontact);
+        for(int i=0;i<total_students;i++)
+        {
+            if(enrollers[i]->getcontact()==contact)
+            {
+                enrollers[i]->setcontact(newcontact);
+                cout<<"CONTACT HAS BEEN UPDATED"<<endl;
+                break;
+            }
+        }
+    }
+}
 void Enrollment_Manager::addstudent()
 {
     student *newstudent = new student;
@@ -184,6 +254,9 @@ void System::enrollstudentsmenu()
     }
     break;
     case 4:
+   {
+         enrollstudents.update_studentinfo();
+   } 
         break;
     case 5:
         break;
