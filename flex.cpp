@@ -1,4 +1,6 @@
 #include<iostream>
+#include<windows.h>
+#include<cstring>
 #include"student.h"
 #include"filehandler.h"
 #include"System.h"

@@ -26,9 +26,8 @@ public:
     float getattendance();
     float getmarks();
     void input_details();
-    void enrollstudent();
-    void registercourse();
-    void withdrawcourse();
+    // void registercourse();
+    // void withdrawcourse();
     void attendancetrack();
     void assignmarks();
     ~student();

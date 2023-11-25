@@ -1,1 +1,4 @@
-2l6959,mahnoor,9,3234559693
+Rollnumber :2L-0000
+Name :ibrahim
+Age: 8
+Contact info: 3209459209

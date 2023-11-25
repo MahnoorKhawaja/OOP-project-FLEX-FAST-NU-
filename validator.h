@@ -2,4 +2,7 @@
 using namespace std;
 #pragma
 
-class validator{};
+class validator{
+    public:
+    
+};
