@@ -132,13 +132,11 @@ void student::input_details()
         cin.ignore(); // Uncomment if needed based on previous input method
         getline(cin, name);
         
-        cout << "Enter your roll number" << endl;
-        cin.ignore(); // Clear the input buffer to ensure no leftover newline character
+        cout << "Enter your roll number" << endl; // Clear the input buffer to ensure no leftover newline character
         getline(cin, rollnumber);
-
+        cout<<rollnumber<<endl;
         cout << "Enter your contact" << endl;
         getline(cin, contact);
-
         cout << "Enter your age" << endl;
         cin >> age;
         cin.ignore(); // Clear the input buffer after reading an integer

@@ -1,4 +1,8 @@
-Rollnumber :333
- Name :mahnoor
- Age: 18
-Contact info: 03234559678
+Rollnumber   :l22-000
+Name        :khizae
+Age         :65
+Contact     :76866756
+Rollnumber   :l22-9999
+Name        :kkkk
+Age         :19
+Contact     :03234445356

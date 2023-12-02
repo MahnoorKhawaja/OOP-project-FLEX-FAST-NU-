@@ -1,9 +1,10 @@
 #include <iostream>
- #include<cstring>
+#include <cstring>
+#include "validator.h"
 using namespace std;
 #pragma
 
-class Enrollment_Manager
+class Enrollment_Manager : public validator
 {
 private:
     student **enrollers;
@@ -14,7 +15,7 @@ public:
     Enrollment_Manager();
     void addstudent();
     void current_students();
-  void remove_student(string rollnumber);
+    void remove_student(string rollnumber);
     void update_studentinfo();
     ~Enrollment_Manager();
     friend class course;
@@ -22,7 +23,7 @@ public:
 
 Enrollment_Manager::Enrollment_Manager()
 {
-        
+
     total_students = 0;
     MAX_STUDENTS = 500;
     enrollers = new student *[MAX_STUDENTS]; // Allocate memory for the array
@@ -31,73 +32,76 @@ Enrollment_Manager::Enrollment_Manager()
         enrollers[i] = nullptr; // Initialize all elements to nullptr
     }
 }
-void Enrollment_Manager::update_studentinfo(){
-    cout<<"---Select which part of student information you want to update---"<<endl;
-    cout<<"1. Students Name "<<endl;
-    cout<<"2. Student Roll Number"<<endl;
-    cout<<"3. Student contact number"<<endl;
+void Enrollment_Manager::update_studentinfo()
+{
+    cout << "---Select which part of student information you want to update---" << endl;
+    cout << "1. Students Name " << endl;
+    cout << "2. Student Roll Number" << endl;
+    cout << "3. Student contact number" << endl;
     string enter;
-    cout<<"Enter your choice:"<<endl;
+    cout << "Enter your choice:" << endl;
     cin.ignore();
-    getline(cin,enter);
-    if(enter=="1")
+    getline(cin, enter);
+    if (enter == "1")
     {
-        cout<<"enter your previous name"<<endl;
+        cout << "enter your previous name" << endl;
         string name;
-        cin.ignore();
-        getline(cin,name);
-        cout<<"enter your new name"<<endl;
-        string newname; 
-        cin.ignore();
-        getline(cin,newname);
-        for(int i=0;i<total_students;i++)
+        getline(cin, name);
+        cout << name;
+        cout << "enter your new name" << endl;
+        string newname;
+        getline(cin, newname);
+        cout << newname;
+        for (int i = 0; i < total_students; i++)
         {
-            if(enrollers[i]->getname()==name)
+            if (enrollers[i]->getname() == name)
             {
                 enrollers[i]->setname(newname);
-                cout<<"NAME HAS BEEN UPDATED"<<endl;
+                cout << "NAME HAS BEEN UPDATED" << endl;
+                filehandler::clear_and_update(enrollers, total_students);
                 break;
             }
         }
     }
 
-    if(enter=="2")
+    if (enter == "2")
     {
-        cout<<"enter your previous roll number"<<endl;
+        cout << "enter your previous roll number" << endl;
         string roll;
         cin.ignore();
-        getline(cin,roll);
-        cout<<"enter your new rollnumber"<<endl;
+        getline(cin, roll);
+        cout << "enter your new rollnumber" << endl;
         string newroll;
         cin.ignore();
-        getline(cin,newroll);
-        for(int i=0;i<total_students;i++)
+        getline(cin, newroll);
+        for (int i = 0; i < total_students; i++)
         {
-            if(enrollers[i]->getrollnum()==roll)
+            if (enrollers[i]->getrollnum() == roll)
             {
                 enrollers[i]->setrollnumber(newroll);
-                cout<<"ROLL NUMBER HAS BEEN UPDATED"<<endl;
+                cout << "ROLL NUMBER HAS BEEN UPDATED" << endl;
+                filehandler::clear_and_update(enrollers, total_students);
                 break;
             }
-
         }
     }
-     if(enter=="3")
+    if (enter == "3")
     {
-        cout<<"enter your previous contact"<<endl;
+        cout << "enter your previous contact" << endl;
         string contact;
         cin.ignore();
-        getline(cin,contact);
-        cout<<"enter your new contactnumber"<<endl;
+        getline(cin, contact);
+        cout << "enter your new contactnumber" << endl;
         string newcontact;
         cin.ignore();
-        getline(cin,newcontact);
-        for(int i=0;i<total_students;i++)
+        getline(cin, newcontact);
+        for (int i = 0; i < total_students; i++)
         {
-            if(enrollers[i]->getcontact()==contact)
+            if (enrollers[i]->getcontact() == contact)
             {
                 enrollers[i]->setcontact(newcontact);
-                cout<<"CONTACT HAS BEEN UPDATED"<<endl;
+                cout << "CONTACT HAS BEEN UPDATED" << endl;
+                filehandler::clear_and_update(enrollers, total_students);
                 break;
             }
         }
@@ -108,20 +112,36 @@ void Enrollment_Manager::addstudent()
     student *newstudent = new student;
     cout << "Enter the student's details" << endl;
     newstudent->input_details();
+    char c;
+
     // Add validation logic here
-    // if (isValid(newstudent)) { ...
-    filehandler::savestudent_tofile(*newstudent);
-    cout << "Student added successfully" << endl;
-    // Check for array capacity before adding
-    if (total_students < MAX_STUDENTS)
-    { // Assuming MAX_STUDENTS is the capacity
-        enrollers[total_students] = newstudent;
-        total_students++;
+    if (validator::isValid(newstudent))
+    {
+        cout << "do you want to save the info to file, press y for yes and n for no" << endl;
+        cin >> c;
+        if (c == 'y')
+        {
+            filehandler::savestudent_tofile(*newstudent);
+            if (total_students < MAX_STUDENTS)
+            { // Assuming MAX_STUDENTS is the capacity
+                enrollers[total_students] = newstudent;
+                total_students++;
+            }
+            else
+            {
+                cout << "No space to add more students" << endl;
+                delete newstudent; // Only delete if there's no space to add
+            }
+            cout << "Student added successfully" << endl;
+        }
+        else
+        {
+            cout << "student not added to file" << endl;
+        }
     }
     else
     {
-        cout << "No space to add more students" << endl;
-        delete newstudent; // Only delete if there's no space to add
+        cout << "cannot add this student" << endl;
     }
 }
 void Enrollment_Manager::remove_student(string rollnum)
@@ -148,8 +168,8 @@ void Enrollment_Manager::remove_student(string rollnum)
 }
 void Enrollment_Manager::current_students()
 {
-    cout << "Total Students enrolled are :" << endl;
-    filehandler::loadstudents();
+    cout << "Total Students that are arleady enrolled :" << endl;
+    filehandler::loadfromfile(enrollers,total_students);
 }
 
 Enrollment_Manager::~Enrollment_Manager()
@@ -163,11 +183,11 @@ Enrollment_Manager::~Enrollment_Manager()
 
 class System // central class which interacts with the user
 {
-    private:
+private:
     Enrollment_Manager enrollstudents;
- 
+
 public:
-   int identity;
+    int identity;
     System();
     void mainmenu();
     void enrollstudentsmenu();
@@ -184,14 +204,14 @@ void System::mainmenu()
     cout << "FLEX COURSE MANAGEMENT SYSTEM" << endl;
     cout << "------------------------------" << endl;
     int choice;
-   
+
     do
     {
-        cout<<"Your are a :"<<endl;
-        cout<<"1. Student  "<<endl;
-        cout<<"2. Teacher  "<<endl;
-        cout<<"3. Admin    "<<endl;
-        cin>>identity;
+        cout << "Your are a :" << endl;
+        cout << "1. Student  " << endl;
+        cout << "2. Teacher  " << endl;
+        cout << "3. Admin    " << endl;
+        cin >> identity;
 
         cout << "-----------Main Menu------------" << endl;
         cout << "1. Enroll a student   " << endl;
@@ -206,23 +226,24 @@ void System::mainmenu()
         switch (choice)
         {
         case 1:
-        if(identity==3){
-            enrollstudentsmenu();
-        }
-        else
-        {
-            cout<<"Enrollment of students is done by admin only"<<endl;
-        }
+            if (identity == 3)
+            {
+                enrollstudentsmenu();
+            }
+            else
+            {
+                cout << "Enrollment of students is done by admin only" << endl;
+            }
             break;
         case 2:
-        if(identity==3)
-        {
-            course_registrationmenu();
-        }
-        else
-        {
-            cout<<"Course registeration is done by admin only"<<endl;
-        }
+            if (identity == 3)
+            {
+                course_registrationmenu();
+            }
+            else
+            {
+                cout << "Course registeration is done by admin only" << endl;
+            }
             break;
         case 3:
             attendancemenu();
@@ -257,7 +278,7 @@ void System::enrollstudentsmenu()
     {
     case 1:
     {
-      enrollstudents.current_students();
+        enrollstudents.current_students();
     }
     break;
     case 2:
@@ -275,10 +296,10 @@ void System::enrollstudentsmenu()
     }
     break;
     case 4:
-   {
-         enrollstudents.update_studentinfo();
-   } 
-        break;
+    {
+        enrollstudents.update_studentinfo();
+    }
+    break;
     case 5:
         break;
     }
@@ -316,7 +337,6 @@ void System::attendancemenu()
     {
     case 1:
     {
-        
     }
     case 2:
     {

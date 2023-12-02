@@ -4,7 +4,7 @@
 #include"student.h"
 #include"filehandler.h"
 #include"System.h"
-#include"validator.h"
+//#include"validator.h"
 using namespace std;
 
 int main()
