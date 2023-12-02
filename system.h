@@ -22,7 +22,7 @@ public:
 
 Enrollment_Manager::Enrollment_Manager()
 {
-
+        
     total_students = 0;
     MAX_STUDENTS = 500;
     enrollers = new student *[MAX_STUDENTS]; // Allocate memory for the array
@@ -47,7 +47,7 @@ void Enrollment_Manager::update_studentinfo(){
         cin.ignore();
         getline(cin,name);
         cout<<"enter your new name"<<endl;
-        string newname;
+        string newname; 
         cin.ignore();
         getline(cin,newname);
         for(int i=0;i<total_students;i++)
@@ -167,6 +167,7 @@ class System // central class which interacts with the user
     Enrollment_Manager enrollstudents;
  
 public:
+   int identity;
     System();
     void mainmenu();
     void enrollstudentsmenu();
@@ -183,8 +184,15 @@ void System::mainmenu()
     cout << "FLEX COURSE MANAGEMENT SYSTEM" << endl;
     cout << "------------------------------" << endl;
     int choice;
+   
     do
     {
+        cout<<"Your are a :"<<endl;
+        cout<<"1. Student  "<<endl;
+        cout<<"2. Teacher  "<<endl;
+        cout<<"3. Admin    "<<endl;
+        cin>>identity;
+
         cout << "-----------Main Menu------------" << endl;
         cout << "1. Enroll a student   " << endl;
         cout << "2. Course Registration" << endl;
@@ -198,10 +206,23 @@ void System::mainmenu()
         switch (choice)
         {
         case 1:
+        if(identity==3){
             enrollstudentsmenu();
+        }
+        else
+        {
+            cout<<"Enrollment of students is done by admin only"<<endl;
+        }
             break;
         case 2:
+        if(identity==3)
+        {
             course_registrationmenu();
+        }
+        else
+        {
+            cout<<"Course registeration is done by admin only"<<endl;
+        }
             break;
         case 3:
             attendancemenu();
@@ -295,6 +316,7 @@ void System::attendancemenu()
     {
     case 1:
     {
+        
     }
     case 2:
     {

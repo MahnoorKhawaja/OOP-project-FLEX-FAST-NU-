@@ -58,8 +58,8 @@ void filehandler::clear_and_update(student  **Student,int total){
         for (int i=0;i<total;i++) {
             if(Student[i]!=nullptr){
            file <<"Rollnumber :" << Student[i]->getrollnum() <<endl
-             << "Name :"    <<  Student[i]->getname() <<endl
-             << "Age: "       <<  Student[i]->getage() << endl
+             << " Name :"    <<  Student[i]->getname() <<endl
+             << " Age: "       <<  Student[i]->getage() << endl
              << "Contact info: "<<Student[i]->getcontact() << endl;
             }    
         }

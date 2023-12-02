@@ -1,8 +1,4 @@
-Rollnumber :2L-0000
-Name :ibrahim
-Age: 8
-Contact info: 3209459209
-Roll number :678
-Name        :mahnoor
-Age         :2
-Contact     :3245677
+Rollnumber :333
+ Name :mahnoor
+ Age: 18
+Contact info: 03234559678

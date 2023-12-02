@@ -12,7 +12,7 @@ class course{
     string instructor;
     int credit;
     int capacity;
-    int students;
+    int *students;
     public:
     course();
     course(string c, string name, string instr, int cr, int cap);
@@ -28,11 +28,11 @@ class course{
     : code(c), course_name(name), instructor(instr), credit(cr), capacity(cap), students(0) {}
     void course::totalcourses(){
         cout<<"NUMBER OF COURSES YOU CAN GET ENROLLED IN"<<endl;
-        cout<<"1. Object oriented programming                "<<endl;
-        cout<<"2. Computer Architecture and Assembly language"<<endl;
-        cout<<"3. Discrete Mathematics                       "<<endl;
-        cout<<"4. Linear Algebra                             "<<endl;
-        cout<<"5. Comprehension and Presentation Skills      "<<endl;
+        cout<<"1. Object oriented programming                     COURSE CODE CS1005 "<<endl;
+        cout<<"2. Computer Architecture and Assembly language     COURSE CODE CS4500 "<<endl;
+        cout<<"3. Discrete Mathematics                            COURSE CODE CS2200  "<<endl;
+        cout<<"4. Linear Algebra                                  COURSE CODE CS3500  "<<endl;
+        cout<<"5. Comprehension and Presentation Skills           COURSE CODE CS6700   "<<endl;
 
     }
  void course::addstudent_tocourse(){
