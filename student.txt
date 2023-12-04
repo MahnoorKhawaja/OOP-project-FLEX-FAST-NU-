@@ -1,8 +1,3 @@
-Rollnumber   :l22-000
-Name        :khizae
-Age         :65
-Contact     :76866756
-Rollnumber   :l22-9999
-Name        :kkkk
-Age         :19
-Contact     :03234445356
+mahnoor,l22-4567,03234556789,19
+mahnoor,l22-6789,03456669798,19
+huzaifa,l23-6785,03124964595,20

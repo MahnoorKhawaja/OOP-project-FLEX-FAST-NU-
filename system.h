@@ -17,10 +17,12 @@ public:
     void current_students();
     void remove_student(string rollnumber);
     void update_studentinfo();
+    student** get_student_array();
     ~Enrollment_Manager();
-    friend class course;
 };
-
+student** Enrollment_Manager::get_student_array(){
+    return enrollers;
+}
 Enrollment_Manager::Enrollment_Manager()
 {
 
@@ -170,6 +172,7 @@ void Enrollment_Manager::current_students()
 {
     cout << "Total Students that are arleady enrolled :" << endl;
     filehandler::loadfromfile(enrollers,total_students);
+    filehandler::readfromfile(total_students);
 }
 
 Enrollment_Manager::~Enrollment_Manager()
@@ -207,7 +210,7 @@ void System::mainmenu()
 
     do
     {
-        cout << "Your are a :" << endl;
+        cout << "You are a :" << endl;
         cout << "1. Student  " << endl;
         cout << "2. Teacher  " << endl;
         cout << "3. Admin    " << endl;

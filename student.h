@@ -19,8 +19,9 @@ private:
 
 public:
     student();
-    student(string name, string rollnumber, int age, string contact, string course, float attendance, float marks, int totalcourses_enrolled);
+    student(string name, string rollnumber, string contact,int age);
     void setdata(string name, string rollnumber, int age, string contact, string course, float attendance, float marks, int totalcourses_enrolled);
+     student(string name, string rollnumber, string contact,int age, string course, float attendance, float marks, int totalcourses_enrolled);
     string getname() const;
     string getrollnum() const;
     int getage() const;
@@ -102,16 +103,12 @@ void student::withdrawcourse(const string &coursename)
     }
 }
 
-student::student(string name, string rollnumber, int age, string contact, string course, float attendance, float marks, int totalcourses_enrolled)
+student::student(string name, string rollnumber,string contact,int age)
 {
     this->name = name;
     this->rollnumber = rollnumber;
     this->age = age;
     this->contact = contact;
-    this->course = course;
-    this->attendance = attendance;
-    this->marks = marks;
-    this->totalcourses_enrolled = totalcourses_enrolled;
 }
 void student::setname(string updatename)
 {
@@ -153,6 +150,17 @@ void student::setdata(string name, string rollnumber, int age, string contact, s
     this->marks = marks;
     this->totalcourses_enrolled = totalcourses_enrolled;
 }
+// void student::student(string name, string rollnumber, int age, string contact, string course, float attendance, float marks, int totalcourses_enrolled)
+// {
+//     this->name = name;
+//     this->rollnumber = rollnumber;
+//     this->age = age;
+//     this->contact = contact;
+//     this->course = course;
+//     this->attendance = attendance;
+//     this->marks = marks;
+//     this->totalcourses_enrolled = totalcourses_enrolled;
+// }
 string student::getname() const
 {
     return name;
