@@ -1,44 +1,124 @@
 #include<iostream>
-#include"System.h"
+#include"student.h"
 using namespace std;
 #pragma
 
-// This class represents a course offered by FAST. It has attributes such as code, name,
-// instructor, credits, capacity and students. It also has methods to add, remove and display students
-// enrolled in the course.
-class course:public Enrollment_Manager{
+class course{
     private:
     string code;
-    string course_name;
     string instructor;
     int credit;
-    int no_ofstudents;
-   
+    int count_ofstudents;
+    student** enrolledstudents;
+    int capacity;
     public:
     course();
-    course(string c, string name, string instr, int cr, int cap);
-    void addstudent_tocourse();
-    void removestudent_fromcourse();
-    void courseinfo();
+    course(string code, string instr,int cr,int cap);
+    string getcode();
+    void setcode(string code);
+    void addstudent_tocourse(student *s);
+    void removestudent_fromcourse(const string& rollnumber);
     void displayenrolled_students();
-    void totalcourses();
+    string getinstructor();
+    string getEnrolledStudentsDetails();
+     int getcr();
+     student* getarray();
+   // int getcap();
+  //  void totalcourses();
     ~course();
 };
-    // Constructor to initialize the course with basic information
-  course:: course(string c, string name, string instr, int cr, int cap) 
-    : code(c), course_name(name), instructor(instr), credit(cr), capacity(cap), students(0) {}
-    void course::totalcourses(){
-        cout<<"---- NUMBER OF COURSES YOU CAN GET ENROLLED IN ----"<<endl;
-        cout<<"1. Object oriented programming                     COURSE CODE CS1005 "<<endl;
-        cout<<"2. Computer Architecture and Assembly language     COURSE CODE CS4500 "<<endl;
-        cout<<"3. Discrete Mathematics                            COURSE CODE CS2200  "<<endl;
-        cout<<"4. Linear Algebra                                  COURSE CODE CS3500  "<<endl;
-        cout<<"5. Comprehension and Presentation Skills           COURSE CODE CS6700   "<<endl;
+   course::course(){
+    count_ofstudents=0;
+   
+   }
 
+course:: course(string code, string instr,int cr,int cap)
+  {
+    this->code=code;
+    this->instructor=instr;
+   this->credit=cr;
+   
+     count_ofstudents=0;
+    this->capacity=cap;
+     enrolledstudents=new student*[capacity];
+    for(int i=0;i<capacity;i++)
+    {
+        enrolledstudents[i]=nullptr;
     }
- void course::addstudent_tocourse(){
-    
-      
+  } 
+//   student* getarray(){
+//     return enrolledstudents;
+//   }
+string course::getinstructor(){
+    return instructor;
+}
+int course::getcr(){
+    return credit;
+}
+// int getcap(){
+//     return capacity;
+// }
+void course::setcode(string code){
+    this->code=code;
 
+}
+string course::getcode(){
+    return code;
+}
+  
+ void course::addstudent_tocourse(student* s){
+    // capacity=30;
+    // count_ofstudents=0;
+    cout<<count_ofstudents;
+    cout<<capacity;
+   if(count_ofstudents<capacity)
+   {
+    enrolledstudents[count_ofstudents]=s;
+     count_ofstudents++;
+    cout<<"student added to course "<< code <<" sucessfully "<<endl;
+   }  
+   else
+   {
+    cout<<"capacity for this course is full, cannot enroll"<<endl;
+   }
  }
+void course::removestudent_fromcourse(const string& rollnumber)
+{
+    for(int i=0;i<count_ofstudents;i++)
+    {
+        if(enrolledstudents[i]!=nullptr && enrolledstudents[i]->getrollnum()==rollnumber)
+        {
+            for(int j=i;j<count_ofstudents-1;j++)
+            {
+                enrolledstudents[j]=enrolledstudents[j+1];
+            }
+            enrolledstudents[count_ofstudents--]=nullptr;
+            cout<<"student removed from course "<<code<<" sucessfully"<<endl;
+            break;
+        }
+    }
+}
+// void course::displayenrolled_students(){
+//     cout<<"-----STUDENTS ENROLLED IN COURSE "<<code<<"----"<<endl;
+//     for(int i=0;i<count_ofstudents;i++)
+//     {
+//         if(enrolledstudents[i]!=nullptr)
+//         {
+//             cout<<"name: "<<enrolledstudents[i]->getname()<<" roll number: "<<enrolledstudents[i]->getrollnum()<<endl;
+//         }
+//     }
 
+// }
+string course::getEnrolledStudentsDetails() {
+    string details = "-----STUDENTS ENROLLED IN COURSE " + code + "----\n";
+    for (int i = 0; i < count_ofstudents; i++) {
+        if (enrolledstudents[i] != nullptr) {
+            details += "Name: " + enrolledstudents[i]->getname() + ", Roll Number: " + enrolledstudents[i]->getrollnum() + "\n";
+        }
+    }
+    return details;
+}
+course::~course(){
+
+        delete[] enrolledstudents;
+}

@@ -1,7 +1,8 @@
 #include <iostream>
 #include <cstring>
+#include"course"
 using namespace std;
-#pragma
+#pragma once
 
 class student // deals with basic information of individual students
 {
@@ -10,7 +11,7 @@ private:
     string rollnumber;
     int age;
     string contact;
-    string *enrolledcourses;
+    course *enrolledcourses;
     float attendance;
     float marks;
     int totalcourses_enrolled;
@@ -21,7 +22,8 @@ public:
     student();
     student(string name, string rollnumber, string contact,int age);
     void setdata(string name, string rollnumber, int age, string contact, string course, float attendance, float marks, int totalcourses_enrolled);
-     student(string name, string rollnumber, string contact,int age, string course, float attendance, float marks, int totalcourses_enrolled);
+    student(string name, string rollnumber, int age, string contact, string course, float attendance, float marks, int totalcourses_enrolled);
+  //   student(string name, string rollnumber, string contact,int age, string course, float attendance, float marks, int totalcourses_enrolled);
     string getname() const;
     string getrollnum() const;
     int getage() const;
@@ -30,8 +32,8 @@ public:
     float getattendance();
     float getmarks();
     void input_details();
-    void registercourse(const string &coursename);
-    void withdrawcourse(const string &coursename);
+    void registercourse(string& code);
+    void withdrawcourse( string &code);
     void attendancetrack();
     void setname(string updatename);
     void setcontact(string contact);
@@ -45,15 +47,21 @@ student::student()
     enrolledcourses = new string[totalcourses_enrolled];
     currentcoursecount = 0;
 } // default constructor called
-void student::registercourse(const string &coursename)
+void student::registercourse(string& code)
 {
-    if (currentcoursecount <= totalcourses_enrolled)
-    {
-        enrolledcourses[currentcoursecount] = coursename;
+    // currentcoursecount=0;
+    // totalcourses_enrolled=5;
+    cout<<currentcoursecount;
+    cout<<totalcourses_enrolled;
+  if (currentcoursecount < totalcourses_enrolled)
+    {   
+        
+        enrolledcourses[currentcoursecount] = code;
         currentcoursecount++;
+        cout<<"enrolled in course"<<code<<endl;
     }
     else
-    {
+   {
         cout << "Sorry, cannot enroll in this course as no space left" << endl;
     }
 }
@@ -67,7 +75,7 @@ string tolowercase(const string &str)
     return lowerStr;
 }
 
-void student::withdrawcourse(const string &coursename)
+void student::withdrawcourse( string& code)
 {
     if (currentcoursecount == 0)
     {
@@ -76,7 +84,7 @@ void student::withdrawcourse(const string &coursename)
     }
 
     string lowerCoursename;
-    lowerCoursename = tolowercase(coursename);
+    lowerCoursename = tolowercase(code);
     bool courseFound = false;
 
     for (int i = 0; i < currentcoursecount; i++)
@@ -95,16 +103,18 @@ void student::withdrawcourse(const string &coursename)
 
     if (courseFound)
     {
-        cout << "You have successfully withdrawn from the course: " << coursename << endl;
+        cout << "You have successfully withdrawn from the course: " << code << endl;
     }
     else
     {
-        cout << "Course not found: " << coursename << endl;
+        cout << "Course not found: " <<  code << endl;
     }
 }
 
 student::student(string name, string rollnumber,string contact,int age)
 {
+    currentcoursecount=0;
+    totalcourses_enrolled=5;
     this->name = name;
     this->rollnumber = rollnumber;
     this->age = age;
@@ -150,17 +160,17 @@ void student::setdata(string name, string rollnumber, int age, string contact, s
     this->marks = marks;
     this->totalcourses_enrolled = totalcourses_enrolled;
 }
-// void student::student(string name, string rollnumber, int age, string contact, string course, float attendance, float marks, int totalcourses_enrolled)
-// {
-//     this->name = name;
-//     this->rollnumber = rollnumber;
-//     this->age = age;
-//     this->contact = contact;
-//     this->course = course;
-//     this->attendance = attendance;
-//     this->marks = marks;
-//     this->totalcourses_enrolled = totalcourses_enrolled;
-// }
+student::student(string name, string rollnumber, int age, string contact, string course, float attendance, float marks, int totalcourses_enrolled)
+{
+    this->name = name;
+    this->rollnumber = rollnumber;
+    this->age = age;
+    this->contact = contact;
+    this->course = course;
+    this->attendance = attendance;
+    this->marks = marks;
+    this->totalcourses_enrolled = totalcourses_enrolled;
+}
 string student::getname() const
 {
     return name;

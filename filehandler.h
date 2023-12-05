@@ -1,7 +1,7 @@
 #include<iostream>
 #include<fstream>
 #include<sstream>
-
+#include<string>
 using namespace std;
 
 #pragma
@@ -18,30 +18,54 @@ class filehandler{
     static void clear_and_update(student **Student,int total);
     static void loadfromfile(student ** &student,int& totalstudents);
     static void readfromfile(int& totalstudents);
+  //  static void loadcoursesdetails(course **courses,int totalcourses);
     ~filehandler(){}
 };
+// void filehandler::loadcoursesdetails(course **courses,int totalcourses)
+// {
+//     ofstream  outfile("course.txt",ios::out);
+//     if(outfile.is_open())
+//     {
+//         for(int i=0;i<totalcourses;i++)
+//         {
+//             string details=courses[i]->getEnrolledStudentsDetails();
+//             outfile<<details<<endl;
+//         }
+//          outfile.close();
+
+//     }
+//     else
+//     {
+//         cout<<"unable to open course file"<<endl;
+//     }
+
+// }
+
 void filehandler::loadfromfile(student** &studentarray,int& totalstudents){
     ifstream file("student.txt");
     string line;
     int capacity=20;
-    totalstudents=0;
     studentarray=new student*[capacity];
     if(file.is_open())
     {
-        while(getline(file,line))
+        while(!file.eof())
         {
-            istringstream ss(line);
+            // istringstream ss(line);
             string name,rollnumber,contact;
+            // string str_age;
             int age;
-            getline(ss,name,',');
-            getline(ss,rollnumber,',');
-            getline(ss,contact,',');
-            ss>>age;
-
+            getline(file,name,',');
+            getline(file,rollnumber,',');
+            getline(file,contact,',');
+            file>>age;
+            // getline(file,str_age, '\n');
+            // int age = stoi(str_age);
+            cout<<totalstudents;
             studentarray[totalstudents++]=new student(name,rollnumber,contact,age);
 
             if(totalstudents==capacity)
             {
+
                 capacity*=2;
                 student **temp=new student*[capacity];
                 for(int i=0;i<totalstudents;i++)
@@ -60,7 +84,7 @@ void filehandler::loadfromfile(student** &studentarray,int& totalstudents){
 void filehandler::readfromfile(int& totalstudents){
     ifstream infile("student.txt");
     string line;
-    cout<<"total number of students currently enrolled are "<<totalstudents<<endl;
+    cout<<"total number of students currently enrolled are: "<<totalstudents<<endl;
     cout<<endl;
     if(infile.is_open())
     {
@@ -86,17 +110,20 @@ void filehandler::readfromfile(int& totalstudents){
     }
 }
 
+
 void filehandler::clear_and_update(student  **Student,int total){
-      ofstream file("student.txt", ios::trunc); // Open file in truncate mode
+      ofstream file("student.txt", ios::out); // Open file in truncate mode
 
     if (file.is_open()) {
         for (int i=0;i<total;i++) {
             if(Student[i]!=nullptr){
                file <<Student[i]->getname() << "," <<Student[i]->getrollnum() <<","<<Student[i]->getcontact()<<","<<Student[i]->getage() << endl; 
+            }
         }
-        file.close();
+    file.close();
     }
-     } else
+     
+      else
      {
         cout << "Unable to open file for writing." <<endl;
     }

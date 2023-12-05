@@ -1,0 +1,9 @@
+-----STUDENTS ENROLLED IN COURSE oop----
+Name: yasir, Roll Number: l22-8765
+
+-----STUDENTS ENROLLED IN COURSE disc----
+
+-----STUDENTS ENROLLED IN COURSE coal----
+
+-----STUDENTS ENROLLED IN COURSE math----
+
