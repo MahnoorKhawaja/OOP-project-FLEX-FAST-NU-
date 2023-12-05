@@ -1,7 +1,8 @@
 -----STUDENTS ENROLLED IN COURSE oop----
-Name: yasir, Roll Number: l22-8765
+Name: tayyab, Roll Number: l22-5454
 
 -----STUDENTS ENROLLED IN COURSE disc----
+Name: tayyab, Roll Number: l22-5454
 
 -----STUDENTS ENROLLED IN COURSE coal----
 

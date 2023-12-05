@@ -1,7 +1,9 @@
+#pragma once
+
 #include<iostream>
 #include"student.h"
 using namespace std;
-#pragma
+
 
 class course{
     private:
@@ -23,6 +25,7 @@ class course{
     string getEnrolledStudentsDetails();
      int getcr();
      student* getarray();
+    // void disp();
    // int getcap();
   //  void totalcourses();
     ~course();
@@ -62,6 +65,7 @@ void course::setcode(string code){
     this->code=code;
 
 }
+
 string course::getcode(){
     return code;
 }

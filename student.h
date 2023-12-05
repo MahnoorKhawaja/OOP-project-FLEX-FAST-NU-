@@ -1,8 +1,9 @@
+#pragma once
 #include <iostream>
 #include <cstring>
-#include"course"
+#include"course.h"
 using namespace std;
-#pragma once
+
 
 class student // deals with basic information of individual students
 {
@@ -11,7 +12,8 @@ private:
     string rollnumber;
     int age;
     string contact;
-    course *enrolledcourses;
+    course **array;
+    string *enrolledcourses;
     float attendance;
     float marks;
     int totalcourses_enrolled;
@@ -39,13 +41,19 @@ public:
     void setcontact(string contact);
     void setrollnumber(string roll);
     void assignmarks();
+    void array();
     ~student();
 };
 student::student()
 {
     totalcourses_enrolled = 5;
-    enrolledcourses = new string[totalcourses_enrolled];
+   enrolledcourses = new string[totalcourses_enrolled];
     currentcoursecount = 0;
+    // enrolledcourses=new course*[totalcourses_enrolled];
+    // for(int i=0;i<totalcourses_enrolled;i++)
+    // {
+    //     enrolledcourses[i]=nullptr;
+    // }
 } // default constructor called
 void student::registercourse(string& code)
 {
@@ -63,6 +71,15 @@ void student::registercourse(string& code)
     else
    {
         cout << "Sorry, cannot enroll in this course as no space left" << endl;
+    }
+}
+void student::array(){
+    for(int i=0;i<totalcourses_enrolled;i++)
+    {
+        if(enrolledcourses[i]!=" ")
+        {
+        cout<< i+1<<" : " <<enrolledcourses[i]<<endl;
+        }
     }
 }
 string tolowercase(const string &str)
@@ -119,6 +136,10 @@ student::student(string name, string rollnumber,string contact,int age)
     this->rollnumber = rollnumber;
     this->age = age;
     this->contact = contact;
+    //     for(int i=0;i<totalcourses_enrolled;i++)
+    // {
+    //     enrolledcourses[i]=nullptr;
+    // }
 }
 void student::setname(string updatename)
 {
@@ -199,4 +220,6 @@ float student::getmarks()
 {
     return marks;
 }
-student::~student() {}
+student::~student() {
+ //   delete [] enrolledcourses;
+}

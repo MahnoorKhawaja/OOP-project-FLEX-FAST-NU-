@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <cstring>
 // #include<windows.h>
@@ -6,7 +7,6 @@
 #include "filehandler.h"
 // #include"student.h"
 using namespace std;
-#pragma
 
 class Enrollment_Manager : public validator
 {
@@ -30,9 +30,10 @@ public:
     void availablecourses();
     string toLowercase(const string &str);
     string trim(const string &str);
-  //  void withdrawStudentFromCourse(const string &rollnum, const string &code);
+    void withdrawStudentFromCourse(string rollnum, string code);
     student **get_student_array();
-    void incrementcourses();
+    // void incrementcourses();
+    void enrolled_courses(string rollnum);
 
     ~Enrollment_Manager();
 };
@@ -104,9 +105,9 @@ void Enrollment_Manager::enrollStudentInCourse(const string &rollnumber)
             string code;
             cout << endl;
             cout << "enter your course code" << endl;
-           getline(cin, code);
-        //    cin>>code;
-        //    cout<<code;
+            getline(cin, code);
+            //    cin>>code;
+            //    cout<<code;
             course *course_enroll = nullptr;
             course_enroll = findcoursebycode(code, totalcourses);
             cout << "check 2" << endl;
@@ -118,7 +119,7 @@ void Enrollment_Manager::enrollStudentInCourse(const string &rollnumber)
                 // course_enroll is a pointer to a Course object
                 cout << "enrolling under course" << endl;
                 course_enroll->addstudent_tocourse(enrollers[i]);
-             //   filehandler::loadcoursesdetails(coursesarray, totalcourses);
+                filehandler::loadcoursesdetails(coursesarray, totalcourses);
 
                 cout << "student enrolled in the course" << code << endl;
             }
@@ -130,41 +131,39 @@ void Enrollment_Manager::enrollStudentInCourse(const string &rollnumber)
     }
 }
 
-// void withdrawStudentFromCourse(const string &rollnum, const string &code)
-// {
-//     cout << "checking if the student is even enrolled" << endl;
-//     for (int i = 0; i < total_students; i++)
-//     {
-//         if (enrollers[i] != nullptr && enrollers[i]->getrollnum == rollnum)
-//         {
-//             cout << "student exits" << endl;
-//             course *course_withdraw = findcoursebycode(code, totalcourses);
-//             if(course_withdraw!=nullptr)
-//             { 
-//                 enrollers[i]->withdrawcourse(code);
-//                 course_withdraw->removestudent_fromcourse(rollnum);
-                
+void Enrollment_Manager::withdrawStudentFromCourse(string rollnum, string code)
+{
+    cout << "checking if the student is even enrolled" << endl;
+    for (int i = 0; i < total_students; i++)
+    {
+        if (enrollers[i] != nullptr && enrollers[i]->getrollnum() == rollnum)
+        {
+            cout << "student exits" << endl;
+            course *course_withdraw = findcoursebycode(code, totalcourses);
+            if (course_withdraw != nullptr)
+            {
+                enrollers[i]->withdrawcourse(code);
+                course_withdraw->removestudent_fromcourse(rollnum);
+            }
+            else
+            {
+                cout << "such a course doesnt exist" << endl;
+            }
+        }
+    }
 
-//             }
-//             else
-//             {
-//                 cout<<"such a course doesnt exist"<<endl;
-//             }
-//         }
-//     }
-
-//     // c->removeStudent(s->getrollnum());
-//     // s->withdrawcourse(c->getCode());
-// }
+    // c->removeStudent(s->getrollnum());
+    // s->withdrawcourse(c->getCode());
+}
 
 void Enrollment_Manager::addcourse(course *c)
 {
     if (totalcourses < MAX_COURSES)
     {
-        cout << "Adding course: " << c->getcode() << endl;
+       // cout << "Adding course: " << c->getcode() << endl;
         coursesarray[totalcourses] = c;
         totalcourses++;
-        cout << totalcourses;
+        //cout << totalcourses;
     }
     else
     {
@@ -294,10 +293,10 @@ void Enrollment_Manager::addstudent()
         {
             filehandler::savestudent_tofile(*newstudent);
             if (total_students < MAX_STUDENTS)
-            { // Assuming MAX_STUDENTS is the capacity
+            { // assuming MAX_STUDENTS is the capacity
                 enrollers[total_students] = newstudent;
                 total_students++;
-                cout<<total_students;
+                cout << total_students;
             }
             else
             {
@@ -308,6 +307,12 @@ void Enrollment_Manager::addstudent()
         }
         else
         {
+            if (total_students < MAX_STUDENTS)
+            { // assuming MAX_STUDENTS is the capacity
+                enrollers[total_students] = newstudent;
+                total_students++;
+                cout << total_students;
+            }
             cout << "student not added to file" << endl;
         }
     }
@@ -332,9 +337,9 @@ void Enrollment_Manager::remove_student(string rollnum)
             }
             enrollers[total_students - 1] = nullptr;
             total_students--;
-            for(int i=0;i<total_students;i++)
+            for (int i = 0; i < total_students; i++)
             {
-                cout<<enrollers[i]->getname();
+                cout << enrollers[i]->getname();
             }
             cout << "STUDENT SUCESSFULLY REMOVED" << endl;
             filehandler::clear_and_update(enrollers, total_students);
@@ -347,13 +352,26 @@ void Enrollment_Manager::current_students()
 {
     cout << "Total Students that are already enrolled :" << endl;
     filehandler::loadfromfile(enrollers, total_students);
-   // filehandler::readfromfile(total_students);
-   for(int i=0;i<total_students;i++)
-   {
-      cout<<enrollers[i]->getname()<<endl;
-   }
+    // filehandler::readfromfile(total_students);
+    for (int i = 0; i < total_students; i++)
+    {
+        cout << "ello" << endl;
+        cout << enrollers[i]->getname() << endl;
+    }
 }
-
+void Enrollment_Manager::enrolled_courses(string rollnum)
+{
+    cout << "Enrolled courses: " << endl;
+    for (int i = 0; i < total_students; i++)
+    {
+        if (enrollers[i] != nullptr && enrollers[i]->getrollnum() == rollnum)
+        {
+            cout << "Name :" << enrollers[i]->getname() << "  "
+                 << "Rollnumber " << enrollers[i]->getrollnum() << endl;
+            enrollers[i]->array();
+        }
+    }
+}
 Enrollment_Manager::~Enrollment_Manager()
 {
     for (int i = 0; i < total_students; i++)
@@ -377,7 +395,7 @@ public:
     void attendancemenu();
     void coursewithdrawmenu();
     void marksmenu();
-    ~System();
+    ~System(); 
 };
 System::System()
 {
@@ -594,20 +612,27 @@ void System::coursewithdrawmenu()
     {
     case 1:
     {
-        // string rollnumber, code;
-        // cout << "Enter your roll number, for checking purposes" << endl;
-        // cin.ignore();
-        // getline(cin, rollnumber);
-        // cout << "Enter the course code you want to withdraw/drop from" << endl;
-        // getline(cin, code);
-        // manager.withdrawStudentFromCourse(rollnumber, code);
+        cout << "Enter the rollnumber to see enrolled courses" << endl;
+        string roll;
+        cin.ignore();
+        getline(cin,roll);
+        manager.enrolled_courses(roll);
     }
+    break;
     case 2:
     {
+        string rollnumber, code;
+        cout << "Enter your roll number, for checking purposes" << endl;
+        cin.ignore();
+        getline(cin, rollnumber);
+        cout << "Enter the course code you want to withdraw/drop from" << endl;
+        getline(cin, code);
+        manager.withdrawStudentFromCourse(rollnumber, code);
     }
-    case 3:
-    {
-    }
+    break;
+        // case 3:
+        // {
+        // }
     }
 }
 System::~System() {}

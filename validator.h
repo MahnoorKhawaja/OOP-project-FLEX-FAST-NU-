@@ -1,39 +1,30 @@
+#pragma once
 #include<iostream>
 //#include"student.h"
 using namespace std;
-#pragma
+
 
 class validator{
     public:
-    validator(){}//default constructor
+    validator(){}//default constructor hehe
 bool isValid(student *obj) {
-    // Check name is not empty
+    // check name is not empty
     int nameLength = 0;
-    for (char c : obj->getname()) { ++nameLength; } // Replace obj.name with obj.getName() if name is private
+    for (char c : obj->getname()) { ++nameLength; } 
     if (nameLength == 0) {
         cout << "Name has to be provided." <<endl;
         return false;
     }
 
-    // Check age is greater than 16
+    // check age is greater than 16
     if (obj->getage() <= 16) {
-        std::cout << "Being older than 16 is required." << std::endl;
+        cout << "Being older than 16 is required." << endl;
         return false;
     }
 
-    // Check roll number format 'L' or 'l' followed by 22-xxxx
     int rollNumberLength = 0;
-    for (char c : obj->getrollnum()) { ++rollNumberLength; } // Replace obj.rollNumber with obj.getRollNumber() if rollNumber is private
-    // if (rollNumberLength != 9 || (obj->getrollnum()[0] != 'L' && obj->getrollnum()[0] != 'l') || obj->getrollnum()[3] != '-') {
-    //     std::cout << "Invalid roll number format." << std::endl;
-    //     return false;
-    // }
-    // for (int i = 4; i < rollNumberLength; ++i) {
-    //     if (obj->getrollnum()[i] < '0' || obj->getrollnum()[i] > '9') {
-    //         std::cout << "Invalid roll number format." << std::endl;
-    //         return false;
-    //     }
-    // }
+    for (char c : obj->getrollnum()) { ++rollNumberLength; } 
+
     if(rollNumberLength!=8)
     {
         cout<<"invalid roll number"<<endl;
@@ -42,19 +33,19 @@ bool isValid(student *obj) {
 
     // Check contact number is 11 digits
     int contactNumberLength = 0;
-    for (char c : obj->getcontact()) { ++contactNumberLength; } // Replace obj.contact with obj.getContact() if contact is private
+    for (char c : obj->getcontact()) { ++contactNumberLength; } 
     if (contactNumberLength != 11) {
-        std::cout << "Contact number must be 11 digits." << std::endl;
+        cout << "Contact number must be 11 digits." <<endl;
         return false;
     }
     for (char digit : obj->getcontact()) {
         if (digit < '0' || digit > '9') {
-            std::cout << "Contact number must be 11 digits." << std::endl;
+            cout << "Contact number must be 11 digits." <<endl;
             return false;
         }
     }
 
-    // If all validations pass
+
     return true;
 }
 ~validator(){}

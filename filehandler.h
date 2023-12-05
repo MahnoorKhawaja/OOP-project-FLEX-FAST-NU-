@@ -18,28 +18,28 @@ class filehandler{
     static void clear_and_update(student **Student,int total);
     static void loadfromfile(student ** &student,int& totalstudents);
     static void readfromfile(int& totalstudents);
-  //  static void loadcoursesdetails(course **courses,int totalcourses);
+   static void loadcoursesdetails(course **courses,int totalcourses);
     ~filehandler(){}
 };
-// void filehandler::loadcoursesdetails(course **courses,int totalcourses)
-// {
-//     ofstream  outfile("course.txt",ios::out);
-//     if(outfile.is_open())
-//     {
-//         for(int i=0;i<totalcourses;i++)
-//         {
-//             string details=courses[i]->getEnrolledStudentsDetails();
-//             outfile<<details<<endl;
-//         }
-//          outfile.close();
+void filehandler::loadcoursesdetails(course **courses,int totalcourses)
+{
+    ofstream  outfile("course.txt",ios::out);
+    if(outfile.is_open())
+    {
+        for(int i=0;i<totalcourses;i++)
+        {
+            string details=courses[i]->getEnrolledStudentsDetails();
+            outfile<<details<<endl;
+        }
+         outfile.close();
 
-//     }
-//     else
-//     {
-//         cout<<"unable to open course file"<<endl;
-//     }
+    }
+    else
+    {
+        cout<<"unable to open course file"<<endl;
+    }
 
-// }
+}
 
 void filehandler::loadfromfile(student** &studentarray,int& totalstudents){
     ifstream file("student.txt");
