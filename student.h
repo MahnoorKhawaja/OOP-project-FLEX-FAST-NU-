@@ -12,7 +12,7 @@ private:
     string rollnumber;
     int age;
     string contact;
-    course **array;
+    //course **array;
     string *enrolledcourses;
     float attendance;
     float marks;
@@ -49,6 +49,8 @@ student::student()
     totalcourses_enrolled = 5;
    enrolledcourses = new string[totalcourses_enrolled];
     currentcoursecount = 0;
+    marks=0;
+    attendance=0;
     // enrolledcourses=new course*[totalcourses_enrolled];
     // for(int i=0;i<totalcourses_enrolled;i++)
     // {
@@ -191,6 +193,8 @@ student::student(string name, string rollnumber, int age, string contact, string
     this->attendance = attendance;
     this->marks = marks;
     this->totalcourses_enrolled = totalcourses_enrolled;
+    marks=0;
+    attendance=0;
 }
 string student::getname() const
 {
@@ -217,8 +221,14 @@ float student::getattendance()
     return attendance;
 }
 float student::getmarks()
+
 {
     return marks;
+}
+
+void assignmarks(){
+    //assignments,quizzes,mids(2),final(1)
+    
 }
 student::~student() {
  //   delete [] enrolledcourses;
