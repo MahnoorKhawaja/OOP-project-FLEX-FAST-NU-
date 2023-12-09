@@ -1,13 +1,12 @@
 -----STUDENTS ENROLLED IN COURSE oop----
-Name: majid, Roll Number: l22-3333
-Name: faiza, Roll Number: l22-6666
+Name: 
+fatima, Roll Number: l22-5455
 
 -----STUDENTS ENROLLED IN COURSE disc----
-Name: majid, Roll Number: l22-3333
+Name: 
+fatima, Roll Number: l22-5455
 
 -----STUDENTS ENROLLED IN COURSE coal----
-Name: faiza, Roll Number: l22-6666
 
 -----STUDENTS ENROLLED IN COURSE math----
-Name: faiza, Roll Number: l22-6666
 

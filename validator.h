@@ -6,7 +6,7 @@ using namespace std;
 
 class validator{
     public:
-    validator(){}//default constructor hehe
+    validator(){}
 bool isValid(student *obj) {
     // check name is not empty
     int nameLength = 0;

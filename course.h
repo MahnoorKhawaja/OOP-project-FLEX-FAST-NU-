@@ -4,7 +4,7 @@
 #include"student.h"
 using namespace std;
 
-
+//class student;
 class course{
     private:
     string code;
@@ -24,7 +24,6 @@ class course{
     string getinstructor();
     string getEnrolledStudentsDetails();
      int getcr();
-     student* getarray();
     // void disp();
    // int getcap();
   //  void totalcourses();
@@ -49,9 +48,7 @@ course:: course(string code, string instr,int cr,int cap)
         enrolledstudents[i]=nullptr;
     }
   } 
-//   student* getarray(){
-//     return enrolledstudents;
-//   }
+
 string course::getinstructor(){
     return instructor;
 }
