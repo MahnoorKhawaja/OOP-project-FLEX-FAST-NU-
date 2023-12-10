@@ -375,6 +375,7 @@ void Enrollment_Manager::enrolled_courses(string rollnum)
             cout << "Name :" << enrollers[i]->getname() << "  "
                  << "Rollnumber " << enrollers[i]->getrollnum() << endl;
             enrollers[i]->arrayy();
+            //write on file
         }
     }
 }
