@@ -32,12 +32,11 @@ public:
     string trim(const string &str);
     void withdrawStudentFromCourse(string rollnum, string code);
     student **get_student_array();
-    // void incrementcourses();
     void enrolled_courses(string rollnum);
-    void marksassignment(string code,string rollnum);
-    void display_marks(string code,string roll);
-    void markAttendance(string code,string roll);
-    void display_attendance(string code,string rollnum);
+    void marksassignment(string code, string rollnum);
+    void display_marks(string code, string roll);
+    void markAttendance(string code, string roll);
+    void display_attendance(string code, string rollnum);
 
     ~Enrollment_Manager();
 };
@@ -114,10 +113,8 @@ void Enrollment_Manager::enrollStudentInCourse(const string &rollnumber)
             //    cout<<code;
             course *course_enroll = nullptr;
             course_enroll = findcoursebycode(code, totalcourses);
-            cout << "check 2" << endl;
             if (course_enroll != nullptr)
             {
-                cout << "check 3" << endl;
 
                 enrollers[i]->registercourse(code);
                 // course_enroll is a pointer to a Course object
@@ -155,19 +152,16 @@ void Enrollment_Manager::withdrawStudentFromCourse(string rollnum, string code)
             }
         }
     }
-
-    // c->removeStudent(s->getrollnum());
-    // s->withdrawcourse(c->getCode());
 }
 
 void Enrollment_Manager::addcourse(course *c)
 {
     if (totalcourses < MAX_COURSES)
     {
-       // cout << "Adding course: " << c->getcode() << endl;
+        // cout << "Adding course: " << c->getcode() << endl;
         coursesarray[totalcourses] = c;
         totalcourses++;
-        //cout << totalcourses;
+        // cout << totalcourses;
     }
     else
     {
@@ -212,14 +206,14 @@ void Enrollment_Manager::update_studentinfo()
     cout << "1. Students Name " << endl;
     cout << "2. Student Roll Number" << endl;
     cout << "3. Student contact number" << endl;
-    string enter;
+    int enter;
     cout << "Enter your choice:" << endl;
-    cin.ignore();
-    getline(cin, enter);
-    if (enter == "1")
+    cin >> enter;
+    if (enter == 1)
     {
         cout << "enter your previous name" << endl;
         string name;
+        cin.ignore();
         getline(cin, name);
         cout << name;
         cout << "enter your new name" << endl;
@@ -238,7 +232,7 @@ void Enrollment_Manager::update_studentinfo()
         }
     }
 
-    if (enter == "2")
+    if (enter == 2)
     {
         cout << "enter your previous roll number" << endl;
         string roll;
@@ -246,7 +240,6 @@ void Enrollment_Manager::update_studentinfo()
         getline(cin, roll);
         cout << "enter your new rollnumber" << endl;
         string newroll;
-        cin.ignore();
         getline(cin, newroll);
         for (int i = 0; i < total_students; i++)
         {
@@ -259,7 +252,7 @@ void Enrollment_Manager::update_studentinfo()
             }
         }
     }
-    if (enter == "3")
+    if (enter == 3)
     {
         cout << "enter your previous contact" << endl;
         string contact;
@@ -267,7 +260,6 @@ void Enrollment_Manager::update_studentinfo()
         getline(cin, contact);
         cout << "enter your new contactnumber" << endl;
         string newcontact;
-        cin.ignore();
         getline(cin, newcontact);
         for (int i = 0; i < total_students; i++)
         {
@@ -300,7 +292,7 @@ void Enrollment_Manager::addstudent()
             { // assuming MAX_STUDENTS is the capacity
                 enrollers[total_students] = newstudent;
                 total_students++;
-                cout << total_students;
+                //cout << total_students;
             }
             else
             {
@@ -357,11 +349,13 @@ void Enrollment_Manager::current_students()
     cout << "Total Students that are already enrolled :" << endl;
     filehandler::loadfromfile(enrollers, total_students);
     // filehandler::readfromfile(total_students);
-    for (int i = 0; i < total_students-1; i++)
+    for (int i = 0; i < total_students - 1; i++)
     {
-        if((enrollers[i]->getname()).length()>0)
+        if ((enrollers[i]->getname()).length() > 0)
         {
-    cout <<"Roll number: "<< enrollers[i]->getrollnum() <<"Name : "<<enrollers[i]->getname()<<"Contact info :"<<enrollers[i]->getcontact()<<endl; 
+            cout << "Roll number: " << enrollers[i]->getrollnum() << endl;
+            cout << "Name : " << enrollers[i]->getname() << endl;
+            cout << "Contact info :" << enrollers[i]->getcontact() << endl;
         }
     }
 }
@@ -375,75 +369,73 @@ void Enrollment_Manager::enrolled_courses(string rollnum)
             cout << "Name :" << enrollers[i]->getname() << "  "
                  << "Rollnumber " << enrollers[i]->getrollnum() << endl;
             enrollers[i]->arrayy();
-            //write on file
+            // write on file
         }
     }
 }
-void Enrollment_Manager::marksassignment(string code,string rollnum)
+void Enrollment_Manager::marksassignment(string code, string rollnum)
 {
-    for(int i=0;i<total_students;i++)
+    for (int i = 0; i < total_students; i++)
     {
-        if(enrollers[i]!=nullptr && enrollers[i]->getrollnum()==rollnum)
+        if (enrollers[i] != nullptr && enrollers[i]->getrollnum() == rollnum)
         {
-            cout<<"student is enrolled "<<endl;
-            cout<<"checking if the student is enrolled in that particular course"<<endl;
-            if(enrollers[i]->check_course(code))
+            cout << "student is enrolled " << endl;
+            cout << "checking if the student is enrolled in : " << code << endl;
+            if (enrollers[i]->check_course(code))
             {
-                cout<<"student is enrolled thus can be assigned marks"<<endl;
-                enrollers[i]->assignmarks(code);
+                cout << "student is enrolled thus can be assigned marks" << endl;
+                string roll=enrollers[i]->getrollnum();
+                enrollers[i]->assignmarks(code,roll);
+
             }
             else
             {
-                cout<<"student is not enrolled, cannot assign marks"<<endl;
+                cout << "student is not enrolled, cannot assign marks" << endl;
                 break;
             }
         }
     }
 }
-void Enrollment_Manager::display_marks(string code,string roll)
+void Enrollment_Manager::display_marks(string code, string roll)
 {
-    cout<<"hi"<<endl;
-    for(int i=0;i<total_students;i++)
-    {
-        if(enrollers[i]!=nullptr && enrollers[i]->getrollnum()==roll)
-        {cout<<"check"<<endl;
-            if(enrollers[i]->check_course(code))
-        {
-            cout<<"you are enrolled"<<endl;
-            enrollers[i]->displaymarks(code);
-        }
-        // else
-        // {
-        //     cout<<"You are not enrolled in this course "<<endl;
-        // }
-        }
 
-    }
-}
-void Enrollment_Manager::markAttendance(string code,string roll)
-{
-    for(int i=0;i<total_students;i++)
+    for (int i = 0; i < total_students; i++)
     {
-        if(enrollers[i]!=nullptr && enrollers[i]->getrollnum()==roll)
+        if (enrollers[i] != nullptr && enrollers[i]->getrollnum() == roll)
         {
-            cout<<"student is enrolled"<<endl;
-            if(enrollers[i]->check_course(code)){
-                cout<<"student is enrolled in course thus can mark attendance"<<endl;
-                enrollers[i]->mark_attendance(code);
-                cout<<"Attendance has been marked for student "<<roll<<endl;
+            if (enrollers[i]->check_course(code))
+            {
+                cout << "you are enrolled" << endl;
+                enrollers[i]->displaymarks(code);
             }
         }
     }
 }
-void Enrollment_Manager::display_attendance(string code,string rollnum)
+void Enrollment_Manager::markAttendance(string code, string roll)
 {
-    for(int i=0;i<total_students;i++)
+    for (int i = 0; i < total_students; i++)
     {
-        if(enrollers[i]!=nullptr && enrollers[i]->getrollnum()==rollnum)
+        if (enrollers[i] != nullptr && enrollers[i]->getrollnum() == roll)
         {
-            if(enrollers[i]->check_course(code))
+            cout << "student is enrolled" << endl;
+            if (enrollers[i]->check_course(code))
             {
-                cout<<"student is enrolled can see there attendance"<<endl;
+                cout << "student is enrolled in course thus can mark attendance" << endl;
+                enrollers[i]->mark_attendance(code);
+                cout << "Attendance has been marked for student " << roll << endl;
+            }
+        }
+    }
+}
+void Enrollment_Manager::display_attendance(string code, string rollnum)
+{
+    for (int i = 0; i < total_students; i++)
+    {
+        if (enrollers[i] != nullptr && enrollers[i]->getrollnum() == rollnum)
+        {
+            if (enrollers[i]->check_course(code))
+            {
+                cout << "student is enrolled can see there attendance" << endl;
                 enrollers[i]->display_attendance(code);
             }
         }
@@ -472,7 +464,7 @@ public:
     void attendancemenu();
     void coursewithdrawmenu();
     void marksmenu();
-    ~System(); 
+    ~System();
 };
 System::System()
 {
@@ -647,40 +639,37 @@ void System::attendancemenu()
     {
     case 1:
     {
-        if(identity==1)
+        if (identity == 1)
         {
-            string code,roll;
-            cout<<"enter your roll number "<<endl;
+            string code, roll;
+            cout << "enter your roll number " << endl;
             cin.ignore();
-            getline(cin,roll);
-            cout<<"enter the course code to get its total attendance "<<endl;
-            getline(cin,code);
-            manager.display_attendance(code,roll);
-
+            getline(cin, roll);
+            cout << "enter the course code to get its total attendance " << endl;
+            getline(cin, code);
+            manager.display_attendance(code, roll);
         }
         else
         {
-            cout<<"only students can see there attendance"<<endl;
+            cout << "only students can see there attendance" << endl;
         }
-
     }
     break;
     case 2:
     {
-        if(identity==2)
+        if (identity == 2)
         {
-            string code,rollnumber;
-             cout<<"enter your subject code "<<endl;
-             cin.ignore();
-             getline(cin,code);
-             cout<<"enter the roll number you want to mark attendance for"<<endl;
-             getline(cin,rollnumber);
-             manager.markAttendance(code,rollnumber);
-
+            string code, rollnumber;
+            cout << "enter your subject code " << endl;
+            cin.ignore();
+            getline(cin, code);
+            cout << "enter the roll number you want to mark attendance for" << endl;
+            getline(cin, rollnumber);
+            manager.markAttendance(code, rollnumber);
         }
         else
         {
-            cout<<"Only teacher can mark attendance"<<endl;
+            cout << "Only teacher can mark attendance" << endl;
         }
     }
     break;
@@ -698,50 +687,47 @@ void System::marksmenu()
     {
     case 1:
     {
-        if(identity==1 || identity==3)
+        if (identity == 1 || identity == 3)
         {
 
-              cout<<"enter the roll number"<<endl;
-              string roll;
-              cin.ignore();
-              getline(cin,roll);
-              cout<<roll;
-              cout<<"enter the subject code you want to know marks for"<<endl;
-              string code;
-              getline(cin,code);
-              cout<<code;
-              manager.display_marks(code,roll);
+            cout << "enter the roll number" << endl;
+            string roll;
+            cin.ignore();
+            getline(cin, roll);
+            cout << roll;
+            cout << "enter the subject code you want to know marks for" << endl;
+            string code;
+            getline(cin, code);
+            cout << code;
+            manager.display_marks(code, roll);
         }
         else
         {
-            cout<<"Teachers cannot see subject wise marks of students"<<endl;
+            cout << "Teachers cannot see subject wise marks of students" << endl;
         }
     }
     break;
     case 2:
     {
-        if(identity==2)
+        if (identity == 2)
         {
-            cout<<"enter the subject course code to mark for"<<endl;
+            cout << "enter the subject course code to mark for" << endl;
             string code;
             cin.ignore();
-            getline(cin,code);
-            cout<<"check code"<<code<<endl;
-            cout<<"enter the students roll number you want to assign marks to "<<endl;
+            getline(cin, code);
+            cout << "check code" << code << endl;
+            cout << "enter the students roll number you want to assign marks to " << endl;
             string rollnum;
-            getline(cin,rollnum);
-            cout<<"check roll "<<rollnum<<endl;
-            manager.marksassignment(code,rollnum);
-
-
+            getline(cin, rollnum);
+            cout << "check roll " << rollnum << endl;
+            manager.marksassignment(code, rollnum);
         }
         else
         {
-            cout<<"Only teacher can assign marks"<<endl;
+            cout << "Only teacher can assign marks" << endl;
         }
     }
     break;
- 
     }
 }
 void System::coursewithdrawmenu()
@@ -756,38 +742,44 @@ void System::coursewithdrawmenu()
     {
     case 1:
     {
-        if(identity==3 || identity==1)
+        if (identity == 3 || identity == 1)
         {
-        cout << "Enter the rollnumber to see enrolled courses" << endl;
-        string roll;
-        cin.ignore();
-        getline(cin,roll);
-        manager.enrolled_courses(roll);
+            cout << "Enter the rollnumber to see enrolled courses" << endl;
+            string roll;
+            cin.ignore();
+            getline(cin, roll);
+            manager.enrolled_courses(roll);
         }
         else
         {
-            cout<<"Teachers cannot access this part of flex"<<endl;
+            cout << "Teachers cannot access this part of flex" << endl;
         }
     }
     break;
     case 2:
     {
-        if(identity==3 || identity==1)
+        if (identity == 3 || identity == 1)
         {
-        string rollnumber, code;
-        cout << "Enter your roll number, for checking purposes" << endl;
-        cin.ignore();
-        getline(cin, rollnumber);
-        cout << "Enter the course code you want to withdraw/drop from" << endl;
-        getline(cin, code);
-        manager.withdrawStudentFromCourse(rollnumber, code);
+            string rollnumber, code;
+            cout << "Enter your roll number, for checking purposes" << endl;
+            cin.ignore();
+            getline(cin, rollnumber);
+            cout << "Enter the course code you want to withdraw/drop from" << endl;
+            getline(cin, code);
+            manager.withdrawStudentFromCourse(rollnumber, code);
         }
         else
         {
-            cout<<"Teachers cannot access this part of flex"<<endl;
+            cout << "Teachers cannot access this part of flex" << endl;
         }
     }
     break;
     }
 }
-System::~System() {}
+System::~System()
+{
+    // delete course1;
+    // delete course2;
+    // delete course3;
+    // delete course4;
+}

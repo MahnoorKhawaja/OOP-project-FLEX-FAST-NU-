@@ -1,10 +1,5 @@
------STUDENTS ENROLLED IN COURSE oop----
-Name: fatima, Roll Number: l22-5455
-
------STUDENTS ENROLLED IN COURSE disc----
-Name: fatima, Roll Number: l22-5455
-
------STUDENTS ENROLLED IN COURSE coal----
-
------STUDENTS ENROLLED IN COURSE math----
-
+-----STUDENTS ENROLLED IN COURSE oop--instructor--Dr.Nazia Parveen----
+Name: ryan, Roll Number: l22-3434
+-----STUDENTS ENROLLED IN COURSE disc--instructor--Prof.Hamid Javed----
+-----STUDENTS ENROLLED IN COURSE coal--instructor--Dr.Naila Bhatti----
+-----STUDENTS ENROLLED IN COURSE math--instructor--Prof.Iqbal Younas----

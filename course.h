@@ -4,7 +4,6 @@
 #include"student.h"
 using namespace std;
 
-//class student;
 class course{
     private:
     string code;
@@ -68,10 +67,8 @@ string course::getcode(){
 }
   
  void course::addstudent_tocourse(student* s){
-    // capacity=30;
-    // count_ofstudents=0;
-    cout<<count_ofstudents;
-    cout<<capacity;
+    
+   
    if(count_ofstudents<capacity)
    {
     enrolledstudents[count_ofstudents]=s;
@@ -99,19 +96,8 @@ void course::removestudent_fromcourse(const string& rollnumber)
         }
     }
 }
-// void course::displayenrolled_students(){
-//     cout<<"-----STUDENTS ENROLLED IN COURSE "<<code<<"----"<<endl;
-//     for(int i=0;i<count_ofstudents;i++)
-//     {
-//         if(enrolledstudents[i]!=nullptr)
-//         {
-//             cout<<"name: "<<enrolledstudents[i]->getname()<<" roll number: "<<enrolledstudents[i]->getrollnum()<<endl;
-//         }
-//     }
-
-// }
 string course::getEnrolledStudentsDetails() {
-    string details = "-----STUDENTS ENROLLED IN COURSE " + code + "----\n";
+    string details = "-----STUDENTS ENROLLED IN COURSE " + code + "--instructor--"+ instructor +"----\n";
     for (int i = 0; i < count_ofstudents; i++) {
         if (enrolledstudents[i] != nullptr) {
             details += "Name: " + enrolledstudents[i]->getname() + ", Roll Number: " + enrolledstudents[i]->getrollnum() + "\n";
