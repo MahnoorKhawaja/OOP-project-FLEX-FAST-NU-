@@ -1,5 +1,6 @@
 -----STUDENTS ENROLLED IN COURSE oop--instructor--Dr.Nazia Parveen----
-Name: ryan, Roll Number: l22-3434
+Name: mahnoor, Roll Number: l22-6959
 -----STUDENTS ENROLLED IN COURSE disc--instructor--Prof.Hamid Javed----
+Name: mahnoor, Roll Number: l22-6959
 -----STUDENTS ENROLLED IN COURSE coal--instructor--Dr.Naila Bhatti----
 -----STUDENTS ENROLLED IN COURSE math--instructor--Prof.Iqbal Younas----

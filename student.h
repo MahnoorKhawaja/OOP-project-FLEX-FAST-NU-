@@ -12,14 +12,22 @@ private:
     int classes_Attended;
 
 public:
-    Attendance() : course_Code(""), total_Classes(0), classes_Attended(0) {}
+    Attendance(){
+        course_Code="";
+        total_Classes=0;
+        classes_Attended=0;
+    }
 
-    Attendance(string course_Code) : course_Code(course_Code), total_Classes(0), classes_Attended(0) {}
+    Attendance(string course_Code) : course_Code(course_Code), total_Classes(0), classes_Attended(0) {
+       this-> course_Code=course_Code;
+       total_Classes=0;
+       classes_Attended=0;
+    }
 
-    void markAttendance(bool isPresent)
+    void markAttendance(bool is_present)
     {
         total_Classes++;
-        if (isPresent)
+        if (is_present)
         {
             classes_Attended++;
         }
@@ -109,7 +117,7 @@ private:
     marks *assessments;
     int assessmentCount;
     int assessmentCapacity;
-    course *enrolledcoursesname;
+  //  course *enrolledcoursesname;
     string *enrolledcourses;
     float attendance;
     int totalcourses_enrolled;
@@ -410,7 +418,7 @@ void student::displaymarks(string code)
 }
 void student::mark_attendance(string code)
 {
-    // find the Attendance object for the specified course
+    // find the attendance object for the specified course
     for (int i = 0; i < attendance_count; ++i)
     {
         if (track_attendance[i].getCourseCode() == code)
@@ -448,4 +456,5 @@ student::~student()
 {
     delete[] enrolledcourses;
     delete[] assessments;
+    delete[] track_attendance;
 }

@@ -37,6 +37,7 @@ public:
     void display_marks(string code, string roll);
     void markAttendance(string code, string roll);
     void display_attendance(string code, string rollnum);
+    void fromfile();
 
     ~Enrollment_Manager();
 };
@@ -45,9 +46,9 @@ Enrollment_Manager::Enrollment_Manager()
 {
 
     total_students = 0;
-    MAX_STUDENTS = 500;
+    MAX_STUDENTS = 50;
     enrollers = new student *[MAX_STUDENTS]; // Allocate memory for the array
-    for (int i = 0; i < MAX_STUDENTS; ++i)
+    for (int i = 0; i < MAX_STUDENTS; i++)
     {
         enrollers[i] = nullptr; // Initialize all elements to nullptr
     }
@@ -289,22 +290,22 @@ void Enrollment_Manager::addstudent()
         {
             filehandler::savestudent_tofile(*newstudent);
             if (total_students < MAX_STUDENTS)
-            { // assuming MAX_STUDENTS is the capacity
-                enrollers[total_students] = newstudent;
+            {  enrollers[total_students] = newstudent;
                 total_students++;
-                //cout << total_students;
+                cout << total_students;
             }
             else
             {
                 cout << "No space to add more students" << endl;
-                delete newstudent; // Only delete if there's no space to add
+                delete newstudent; 
             }
             cout << "Student added successfully" << endl;
         }
+    
         else
         {
             if (total_students < MAX_STUDENTS)
-            { // assuming MAX_STUDENTS is the capacity
+            { 
                 enrollers[total_students] = newstudent;
                 total_students++;
                 cout << total_students;
@@ -312,6 +313,7 @@ void Enrollment_Manager::addstudent()
             cout << "student not added to file" << endl;
         }
     }
+    
     else
     {
         cout << "cannot add this student" << endl;
@@ -333,23 +335,33 @@ void Enrollment_Manager::remove_student(string rollnum)
             }
             enrollers[total_students - 1] = nullptr;
             total_students--;
+            cout<<"students left: "<<endl;
             for (int i = 0; i < total_students; i++)
             {
-                cout << enrollers[i]->getname();
+                cout << enrollers[i]->getname()<<endl;
             }
             cout << "STUDENT SUCESSFULLY REMOVED" << endl;
+        //    total_students--;
+        cout<<"student to file "<<total_students<<endl;
             filehandler::clear_and_update(enrollers, total_students);
+            
 
             break;
         }
     }
 }
+void Enrollment_Manager::fromfile(){
+    cout<<"Loading from your file"<<endl;
+    filehandler::loadfromfile(enrollers, total_students);
+
+}
 void Enrollment_Manager::current_students()
 {
     cout << "Total Students that are already enrolled :" << endl;
-    filehandler::loadfromfile(enrollers, total_students);
+    cout<<"total students number "<<total_students<<endl;
+   // filehandler::loadfromfile(enrollers, total_students);
     // filehandler::readfromfile(total_students);
-    for (int i = 0; i < total_students - 1; i++)
+    for (int i = 0; i < total_students; i++)
     {
         if ((enrollers[i]->getname()).length() > 0)
         {
@@ -454,6 +466,7 @@ class System // central class which interacts with the user
 {
 private:
     Enrollment_Manager manager;
+    int count;
 
 public:
     int identity;
@@ -476,6 +489,7 @@ System::System()
     manager.addcourse(course3);
     course *course4 = new course("math", "Prof.Iqbal Younas", 4, 30);
     manager.addcourse(course4);
+    count=0;
 }
 void System::mainmenu()
 {
@@ -557,7 +571,17 @@ void System::enrollstudentsmenu()
     {
     case 1:
     {
+        
+        if(count==0)
+        {
+            manager.fromfile();
+            manager.current_students();
+            count++;
+        }
+        else
+        {
         manager.current_students();
+        }
     }
     break;
     case 2:
@@ -778,8 +802,5 @@ void System::coursewithdrawmenu()
 }
 System::~System()
 {
-    // delete course1;
-    // delete course2;
-    // delete course3;
-    // delete course4;
+   
 }
