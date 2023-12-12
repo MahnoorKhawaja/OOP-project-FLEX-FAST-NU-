@@ -210,12 +210,12 @@ void student::arrayy()
 }
 string tolowercase(const string &str)
 {
-    string lowerStr;
+    string lowerstr;
     for (char c : str)
     {
-        lowerStr += tolower(c);
+        lowerstr += tolower(c);
     }
-    return lowerStr;
+    return lowerstr;
 }
 
 void student::withdrawcourse(string &code)
@@ -293,12 +293,11 @@ void student::input_details()
 
     cout << "Enter your roll number" << endl;
     getline(cin, rollnumber);
-    cout << rollnumber << endl;
     cout << "Enter your contact" << endl;
     getline(cin, contact);
     cout << "Enter your age" << endl;
     cin >> age;
-    cin.ignore(); // Clear the input buffer after reading an integer
+    cin.ignore(); 
 }
 
 void student::setdata(string name, string rollnumber, int age, string contact, string course, float attendance, int totalcourses_enrolled)
@@ -365,7 +364,7 @@ void student::assignmarks(string code,string roll)
 
             if (assessmentCount == assessmentCapacity)
             {
-                // Resize array
+        
                 int newCapacity = assessmentCapacity * 2;
                 marks *newAssessments = new marks[newCapacity];
                 for (int i = 0; i < assessmentCount; i++)
